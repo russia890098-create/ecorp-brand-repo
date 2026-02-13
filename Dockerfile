@@ -118,7 +118,7 @@ RUN echo '#!/bin/bash' > /usr/local/bin/start-ctf.sh && \
     echo 'cron' >> /usr/local/bin/start-ctf.sh && \
     echo '' >> /usr/local/bin/start-ctf.sh && \
     echo '# Set proper ownership' >> /usr/local/bin/start-ctf.sh && \
-    echo 'chown -R www-ctf:www-data /var/www/html/uploads' >> /usr/local/bin/start-ctf.sh && \
+    echo 'chmod 777 /var/www/html/uploads' >> /usr/local/bin/start-ctf.sh && \
     echo '' >> /usr/local/bin/start-ctf.sh && \
     echo '# Start Apache' >> /usr/local/bin/start-ctf.sh && \
     echo 'echo "🚀 E Corp Brand Repository - ONLINE"' >> /usr/local/bin/start-ctf.sh && \
@@ -138,7 +138,7 @@ RUN echo '<IfModule mod_headers.c>' > /etc/apache2/conf-available/security-heade
     a2enconf security-headers
 
 # 16. SET FINAL PERMISSIONS
-RUN chown -R www-ctf:www-data /var/www/html && \
+RUN chown -R www-data:www-data /var/www/html && \
     find /var/www/html -type f -exec chmod 644 {} \; && \
     find /var/www/html -type d -exec chmod 755 {} \;
 
@@ -151,4 +151,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # 19. START THE APPLICATION
 CMD ["/usr/local/bin/start-ctf.sh"]
+
 
