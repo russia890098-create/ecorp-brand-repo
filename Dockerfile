@@ -41,7 +41,7 @@ COPY src/ .
 
 # 6. CREATE UPLOADS DIRECTORY STRUCTURE
 RUN mkdir -p /var/www/html/uploads && \
-    chown -R www-ctf:www-data /var/www/html && \
+    chown -R www-data:www-data /var/www/html && \
     chmod 755 /var/www/html/uploads && \
     chmod 644 /var/www/html/*.php && \
     chmod 644 /var/www/html/style.css && \
@@ -151,3 +151,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # 19. START THE APPLICATION
 CMD ["/usr/local/bin/start-ctf.sh"]
+
