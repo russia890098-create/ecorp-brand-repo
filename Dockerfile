@@ -47,16 +47,6 @@ RUN mkdir -p /var/www/html/uploads && \
     chmod 644 /var/www/html/style.css && \
     chmod 755 /var/www/html/pages
 
-# 7. CREATE .htaccess FOR UPLOADS DIRECTORY
-# This disables direct PHP execution in uploads/ (but include() still works - that's the vuln!)
-RUN echo '<FilesMatch "\.ph(p[3457]?|tml)$">' > /var/www/html/uploads/.htaccess && \
-    echo '    Order Deny,Allow' >> /var/www/html/uploads/.htaccess && \
-    echo '    Deny from all' >> /var/www/html/uploads/.htaccess && \
-    echo '</FilesMatch>' >> /var/www/html/uploads/.htaccess && \
-    echo 'php_flag engine off' >> /var/www/html/uploads/.htaccess && \
-    echo 'Options -Indexes' >> /var/www/html/uploads/.htaccess && \
-    chown www-ctf:www-data /var/www/html/uploads/.htaccess && \
-    chmod 644 /var/www/html/uploads/.htaccess
 
 # 8. RESTRICT /proc FILESYSTEM ACCESS
 # This prevents easy flag capture via /proc/self/environ
@@ -151,5 +141,6 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # 19. START THE APPLICATION
 CMD ["/usr/local/bin/start-ctf.sh"]
+
 
 
